@@ -1,0 +1,26 @@
+import uiautomator2 as ui2
+import time
+
+# Connect to the device
+receiver_device_serial = "192.168.2.79:5555"
+receiver_device = ui2.Device(receiver_device_serial)
+
+# Run the code 10 times
+for _ in range(10):
+    # Unlock the screen
+    receiver_device.unlock()
+    time.sleep(2)
+    
+    # Enter PIN
+    for digit in "1234":
+        receiver_device(resourceId="com.android.systemui:id/digit_text", text=digit).click()
+        time.sleep(2)
+    
+    # Wait for 5 seconds
+    time.sleep(5)
+    
+    # Turn off the screen
+    receiver_device.screen_off()
+
+    # Optional: Wait for some time before repeating
+    time.sleep(2)
